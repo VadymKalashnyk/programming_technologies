@@ -1,0 +1,6 @@
+FROM alpine:latest
+RUN apk add --update python3
+WORKDIR /app
+COPY cinema_manager.py main_console.py /app/
+ENTRYPOINT ["python3"]
+CMD ["main_console.py"]
