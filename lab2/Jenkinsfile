@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    options {
+        timestamps()
+    }
+
+    stages {
+        stage('Check SCM') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                // Для Windows-оселі Jenkins використовується 'bat' (або 'sh' для Linux)
+                bat '''
+                    cd lab2
+                    python -m pip install flask unittest-xml-reporting
+                    python -m unittest discover -s .
+                '''
+            }
+            post {
+                always {
+                    // Публікація звітів згенерованих xmlrunner
+                    junit 'lab2/test-reports/*.xml'
+                }
+                success {
+                    echo 'Application testing successfully completed!'
+                }
+                failure {
+                    echo 'Oooppss!!! Tests failed!'
+                }
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                bat '''
+                    cd lab2
+                    docker login -u ВАШ_DOCKER_USERNAME -p ВАШ_DOCKER_PASSWORD
+                    docker build -t ВАШ_DOCKER_USERNAME/cinema-manager:latest -f Dockerfile .
+                    docker push ВАШ_DOCKER_USERNAME/cinema-manager:latest
+                '''
+            }
+        }
+    }
+}

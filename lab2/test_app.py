@@ -1,5 +1,6 @@
 import unittest
 import json
+import xmlrunner
 from app import app, cinema
 
 class TestCinemaAPI(unittest.TestCase):
@@ -38,4 +39,6 @@ class TestCinemaAPI(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
 if __name__ == '__main__':
-    unittest.main()
+    # Збереження результатів у папку test-reports
+    runner = xmlrunner.XMLTestRunner(output='test-reports')
+    unittest.main(testRunner=runner)
