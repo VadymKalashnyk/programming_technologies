@@ -14,16 +14,14 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                // Для Windows-оселі Jenkins використовується 'bat' (або 'sh' для Linux)
                 bat '''
                     cd lab2
                     python -m pip install flask unittest-xml-reporting
-                    python -m unittest discover -s .
+                    python test_api.py
                 '''
             }
             post {
                 always {
-                    // Публікація звітів згенерованих xmlrunner
                     junit 'lab2/test-reports/*.xml'
                 }
                 success {
