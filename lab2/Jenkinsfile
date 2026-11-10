@@ -17,7 +17,7 @@ pipeline {
                 bat '''
                     cd lab2
                     python -m pip install flask unittest-xml-reporting
-                    python test_api.py
+                    python test_app.py
                 '''
             }
             post {
