@@ -37,9 +37,9 @@ pipeline {
             steps {
                 bat '''
                     cd lab2
-                    docker login -u ВАШ_DOCKER_USERNAME -p ВАШ_DOCKER_PASSWORD
-                    docker build -t ВАШ_DOCKER_USERNAME/cinema-manager:latest -f Dockerfile .
-                    docker push ВАШ_DOCKER_USERNAME/cinema-manager:latest
+                    docker login -u kalashnykv -p dckr_pat_NrGFh_7iJYpTOOGeb8z_gzpd0Ms
+                    docker build -t kalashnykv/cinema-manager:latest -f Dockerfile .
+                    docker push kalashnykv/cinema-manager:latest
                 '''
             }
         }
