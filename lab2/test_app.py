@@ -42,3 +42,4 @@ if __name__ == '__main__':
     # Збереження результатів у папку test-reports
     runner = xmlrunner.XMLTestRunner(output='test-reports')
     unittest.main(testRunner=runner)
+#gfgf
