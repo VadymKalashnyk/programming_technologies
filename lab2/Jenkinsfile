@@ -35,12 +35,14 @@ pipeline {
 
         stage('Docker Build & Push') {
             steps {
-                bat '''
-                    cd lab2
-                    docker login -u kalashnykv -p dckr_pat_NrGFh_7iJYpTOOGeb8z_gzpd0Ms
-                    docker build -t kalashnykv/cinema-manager:latest -f Dockerfile .
-                    docker push kalashnykv/cinema-manager:latest
-                '''
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    bat '''
+                        cd lab2
+                        docker login -u %DOCKER_USER% -p %DOCKER_PASS%
+                        docker build -t %DOCKER_USER%/cinema-manager:latest -f Dockerfile .
+                        docker push %DOCKER_USER%/cinema-manager:latest
+                    '''
+                }
             }
         }
     }
